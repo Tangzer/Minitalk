@@ -1,26 +1,27 @@
-SERVER          =   server
-SERVER_SRC      =   server.c utils.c
+SERVER			=	server
+SERVER_SRC		=	utils.c	server.c
+SERVER_OBJ		=	$(SERVER_SRC:.c=.o)
 
-CLIENT          =   client
-CLIENT_SRC      =   client.c utils.c
+CLIENT			=	client
+CLIENT_SRC		=	client.c utils.c
+CLIENT_OBJ		=	$(CLIENT_SRC:.c=.o)
 
 
-CC              =   gcc
-RM              =   rm -f
-FLAGS           =   -Wall -Werror -Wextra
+CC				=   gcc
+CFLAGS			=	-Wall -Werror -Wextra
 
 all : $(SERVER) $(CLIENT)
 
-$(SERVER) : $(SERVER_OBJ) $(UTILS_OBJ)
-	$(CC) $(FLAGS) $(SERVER_SRC) $(UTILS_SRC) -o $(SERVER)
+$(SERVER) : $(SERVER_OBJ)
+	$(CC) $(CFLAGS) $(SERVER_OBJ) -o $@
 
-$(CLIENT) : $(CLIENT_OBJ) $(UTILS_OBJ)
-	$(CC) $(FLAGS) $(CLIENT_SRC) $(UTILS_SRC) -o $(CLIENT)
+$(CLIENT) : $(CLIENT_OBJ)
+	$(CC) $(CFLAGS) $(CLIENT_OBJ) -o $@
 
 fclean : clean
-
+	$(RM) $(SERVER) $(CLIENT)
 clean :
-	rm -rf server client
+	$(RM) $(SERVER_OBJ) $(CLIENT_OBJ)
 
 re : fclean all
 

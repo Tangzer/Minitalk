@@ -12,7 +12,7 @@
 
 #include "./minitalk.h"
 
-void	bit_to_char(bool bit)
+static void	bit_to_char(bool bit)
 {
 	static char	c;
 	static int	count;
@@ -37,7 +37,7 @@ void	bit_to_char(bool bit)
 	c <<= 1;
 }
 
-static void	zero_or_one(int signal)
+static void	handle_signal(int signal)
 {
 	if (signal == SIGUSR1)
 		bit_to_char(1);
@@ -47,8 +47,8 @@ static void	zero_or_one(int signal)
 
 int	main(void)
 {
-	signal(SIGUSR1, zero_or_one);
-	signal(SIGUSR2, zero_or_one);
+	signal(SIGUSR1, handle_signal);
+	signal(SIGUSR2, handle_signal);
 	ft_putstr("pid : ");
 	ft_putnbr(getpid());
 	ft_putstr("\n");
