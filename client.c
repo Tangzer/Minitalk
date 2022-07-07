@@ -42,6 +42,7 @@ int	main(int ac, char **av)
 			send_char(pid, *s);
 			s++;
 		}
+		usleep(100000);
 		send_char(pid, '\0');
 	}
 	return (0);
